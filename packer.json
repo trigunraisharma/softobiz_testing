@@ -1,0 +1,57 @@
+{
+    "variables":{
+        "applicaiton_name": "softobiz",
+        "application_version": "1.0.0",
+        "region": "ap-south-1",
+        "instance_type": "t2.micro",
+        "source_ami": "ami-0851b76e8b1bce90b",
+        "ami_aws_account_id": "413487075219"
+
+    },
+    "builders": [
+        {
+            "name": "{{ user `application_name` }}",
+            "type": "amazon-ebs",
+            "profile": "trigunraisharmah",
+            "ssh_username": "ubuntu",
+            "force_deregister": "true",
+            "force_delete_snapshot": "true",
+            "associate_public_ip_address": "true",
+            "region": "{{ user `region` }}",
+            "source_ami": "{{ user `source_ami` }}",
+            "instance_type":  "{{ user `instance_type` }}",
+            "ami_name": "{{ user `application_name` }}-{{ user `application_version` }}",
+            "ami_users": "{{ user 'ami_shared_accounts' }}",
+            "tags": {
+                "Name": "{{user `application_name`}}",
+                "createdBy": "Packer"
+            }
+
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "/home/trigun/DevOps_Bootcamp/01stFeb/softobiz-project1/scripts/ansible.sh"
+        },
+
+        {
+            "type": "shell",
+            "script": "/home/trigun/DevOps_Bootcamp/01stFeb/softobiz-project1/scripts/httpd.sh"
+        },
+
+        {
+            "type": "ansible-local",
+            "playbook_file": "/home/trigun/DevOps_Bootcamp/01stFeb/softobiz-project1/scripts/web.yml",
+            "extra arguments": [
+                "-vvvv"
+            ]
+        },    
+            
+        {
+            "type": "shell",
+            "script": "/home/trigun/DevOps_Bootcamp/01stFeb/softobiz-project1/scripts/web.sh"
+        }
+
+    ]
+}
