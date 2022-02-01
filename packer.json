@@ -21,7 +21,7 @@
             "source_ami": "{{ user `source_ami` }}",
             "instance_type":  "{{ user `instance_type` }}",
             "ami_name": "{{ user `application_name` }}-{{ user `application_version` }}",
-            "ami_users": "{{ user 'ami_shared_accounts' }}",
+            "ami_users": "{{ user 'ami_aws_account_id' }}",
             "tags": {
                 "Name": "{{user `application_name`}}",
                 "createdBy": "Packer"
