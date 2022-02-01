@@ -14,8 +14,6 @@
             "type": "amazon-ebs",
             "profile": "trigunraisharmah",
             "ssh_username": "ubuntu",
-            "ECS_ENABLE_TASK_IAM_ROLE": "true",
-            "ECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST": "true",
             "force_deregister": "true",
             "force_delete_snapshot": "true",
             "associate_public_ip_address": "true",
